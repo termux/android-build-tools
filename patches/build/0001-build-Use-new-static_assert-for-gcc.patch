@@ -1,0 +1,25 @@
+From 384d6a5c7f48667dd6641daed8a715f71f2854f1 Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] build: Use new static_assert for gcc
+
+---
+ tools/zipalign/ZipFile.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/zipalign/ZipFile.cpp b/tools/zipalign/ZipFile.cpp
+index 42cc349..6b0a49e 100644
+--- a/tools/zipalign/ZipFile.cpp
++++ b/tools/zipalign/ZipFile.cpp
+@@ -35,7 +35,7 @@
+ #include <assert.h>
+ #include <inttypes.h>
+ 
+-_Static_assert(sizeof(off_t) == 8, "off_t too small");
++static_assert(sizeof(off_t) == 8, "off_t too small");
+ 
+ namespace android {
+ 
+-- 
+2.48.1
+

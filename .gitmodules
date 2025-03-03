@@ -1,0 +1,30 @@
+[submodule "vendor/build"]
+	path = vendor/build
+	url = https://android.googlesource.com/platform/build
+[submodule "vendor/zopfli"]
+	path = vendor/zopfli
+	url = https://android.googlesource.com/platform/external/zopfli
+[submodule "vendor/base"]
+	path = vendor/base
+	url = https://android.googlesource.com/platform/frameworks/base
+[submodule "vendor/native"]
+	path = vendor/native
+	url = https://android.googlesource.com/platform/frameworks/native
+[submodule "vendor/core"]
+	path = vendor/core
+	url = https://android.googlesource.com/platform/system/core
+[submodule "vendor/incremental_delivery"]
+	path = vendor/incremental_delivery
+	url = https://android.googlesource.com/platform/system/incremental_delivery
+[submodule "vendor/libbase"]
+	path = vendor/libbase
+	url = https://android.googlesource.com/platform/system/libbase
+[submodule "vendor/libziparchive"]
+	path = vendor/libziparchive
+	url = https://android.googlesource.com/platform/system/libziparchive
+[submodule "vendor/logging"]
+	path = vendor/logging
+	url = https://android.googlesource.com/platform/system/logging
+[submodule "vendor/aidl"]
+	path = vendor/aidl
+	url = https://android.googlesource.com/platform/system/tools/aidl

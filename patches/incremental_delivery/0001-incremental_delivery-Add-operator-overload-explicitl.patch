@@ -1,0 +1,25 @@
+From 6156393ff9e5682c8de5cfa1ed799fa2e5ac6efc Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] incremental_delivery: Add operator-- overload explicitly for libstdc++
+
+---
+ incfs/util/include/util/map_ptr.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/incfs/util/include/util/map_ptr.h b/incfs/util/include/util/map_ptr.h
+index 9a6aebf..fc99d5b 100644
+--- a/incfs/util/include/util/map_ptr.h
++++ b/incfs/util/include/util/map_ptr.h
+@@ -186,6 +186,8 @@ public:
+             return *this;
+         }
+ 
++        const const_iterator& operator--();
++
+         const const_iterator operator++(int) {
+             const_iterator temp(*this);
+             safe_ptr_++;
+-- 
+2.48.1
+

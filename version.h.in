@@ -1,0 +1,14 @@
+// SPDX-License-Identifier: Apache-2.0
+// version.h.in: https://android.googlesource.com/platform/build/soong/+/refs/heads/master/cc/libbuildversion/include/build/version.h
+
+#pragma once
+
+#include <string>
+
+namespace android {
+	namespace build {
+		std::string GetBuildNumber() {
+			return "@ANDROID_VERSION@";
+		}
+	}
+}

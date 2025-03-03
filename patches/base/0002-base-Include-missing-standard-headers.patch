@@ -1,0 +1,98 @@
+From 898e7e49bf4a629b4cb5a393813b2861e19aa336 Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] base: Include missing standard headers
+
+---
+ libs/androidfw/ApkParsing.cpp      | 1 +
+ libs/androidfw/BigBufferStream.cpp | 3 +++
+ libs/androidfw/PngCrunch.cpp       | 3 +++
+ tools/aapt2/AppInfo.h              | 2 ++
+ tools/aapt2/cmd/Command.h          | 1 +
+ tools/aapt2/io/StringStream.cpp    | 4 ++++
+ 6 files changed, 14 insertions(+)
+
+diff --git a/libs/androidfw/ApkParsing.cpp b/libs/androidfw/ApkParsing.cpp
+index 7eedfdb5c..d6bf0cf0d 100644
+--- a/libs/androidfw/ApkParsing.cpp
++++ b/libs/androidfw/ApkParsing.cpp
+@@ -18,6 +18,7 @@
+ #include <algorithm>
+ #include <array>
+ #include <stdlib.h>
++#include <string.h>
+ #include <string_view>
+ #include <sys/types.h>
+ 
+diff --git a/libs/androidfw/BigBufferStream.cpp b/libs/androidfw/BigBufferStream.cpp
+index f18199cfa..03943a681 100644
+--- a/libs/androidfw/BigBufferStream.cpp
++++ b/libs/androidfw/BigBufferStream.cpp
+@@ -17,6 +17,9 @@
+ #include "androidfw/BigBufferStream.h"
+ 
+ #include <algorithm>
++#include <limits>
++
++#include <string.h>
+ 
+ namespace android {
+ 
+diff --git a/libs/androidfw/PngCrunch.cpp b/libs/androidfw/PngCrunch.cpp
+index cf3c0eeff..93cf715f9 100644
+--- a/libs/androidfw/PngCrunch.cpp
++++ b/libs/androidfw/PngCrunch.cpp
+@@ -17,7 +17,10 @@
+ #include <png.h>
+ #include <zlib.h>
+ 
++#include <string.h>
++
+ #include <algorithm>
++#include <limits>
+ #include <unordered_map>
+ #include <unordered_set>
+ 
+diff --git a/tools/aapt2/AppInfo.h b/tools/aapt2/AppInfo.h
+index cabbe7ea7..15461a3fa 100644
+--- a/tools/aapt2/AppInfo.h
++++ b/tools/aapt2/AppInfo.h
+@@ -21,6 +21,8 @@
+ #include <set>
+ #include <string>
+ 
++#include <stdint.h>
++
+ namespace aapt {
+ 
+ // Information relevant to building an app, parsed from the app's AndroidManifest.xml.
+diff --git a/tools/aapt2/cmd/Command.h b/tools/aapt2/cmd/Command.h
+index 1416e980e..8c3ec9d1f 100644
+--- a/tools/aapt2/cmd/Command.h
++++ b/tools/aapt2/cmd/Command.h
+@@ -18,6 +18,7 @@
+ #define AAPT_COMMAND_H
+ 
+ #include <functional>
++#include <memory>
+ #include <optional>
+ #include <ostream>
+ #include <string>
+diff --git a/tools/aapt2/io/StringStream.cpp b/tools/aapt2/io/StringStream.cpp
+index bb3911b20..7ca9b4fb0 100644
+--- a/tools/aapt2/io/StringStream.cpp
++++ b/tools/aapt2/io/StringStream.cpp
+@@ -16,6 +16,10 @@
+ 
+ #include "io/StringStream.h"
+ 
++#include <limits>
++
++#include <string.h>
++
+ using ::android::StringPiece;
+ 
+ namespace aapt {
+-- 
+2.48.1
+

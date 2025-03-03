@@ -1,0 +1,33 @@
+From ad8f77a2ff08b9e5d211cfa7fbec2ecd8889c3ed Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] libziparchive: Align ZipStringOffset20 structure size
+
+This fixes the following compiler error with clang.
+
+zip_cd_entry_map.h:96:15: error: static assertion failed due to requirement 'sizeof(ZipStringOffset20) == 4'
+   96 | static_assert(sizeof(struct ZipStringOffset20) == 4);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+zip_cd_entry_map.h:96:48: note: expression evaluates to '8 == 4'
+   96 | static_assert(sizeof(struct ZipStringOffset20) == 4);
+      |               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~
+---
+ zip_cd_entry_map.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/zip_cd_entry_map.h b/zip_cd_entry_map.h
+index 838acad..425775f 100644
+--- a/zip_cd_entry_map.h
++++ b/zip_cd_entry_map.h
+@@ -90,7 +90,7 @@ struct ZipStringOffset20 {
+   static constexpr size_t offset_max = (1u << 20) - 1;
+   static constexpr size_t length_max = (1u << 12) - 1;
+   uint32_t name_offset : 20;
+-  uint16_t name_length : 12;
++  uint32_t name_length : 12;
+ };
+ 
+ static_assert(sizeof(struct ZipStringOffset20) == 4);
+-- 
+2.48.1
+

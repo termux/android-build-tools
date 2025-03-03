@@ -1,0 +1,55 @@
+From c2454a20b38f72da8aef51251bba74f2c9f8b41d Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] base: Remove directory from protobuf imports
+
+---
+ tools/aapt2/ApkInfo.proto           | 2 +-
+ tools/aapt2/Resources.proto         | 2 +-
+ tools/aapt2/ResourcesInternal.proto | 4 ++--
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/tools/aapt2/ApkInfo.proto b/tools/aapt2/ApkInfo.proto
+index b5ff71fa5..044cca35c 100644
+--- a/tools/aapt2/ApkInfo.proto
++++ b/tools/aapt2/ApkInfo.proto
+@@ -16,7 +16,7 @@
+ 
+ syntax = "proto3";
+ 
+-import "frameworks/base/tools/aapt2/Resources.proto";
++import "Resources.proto";
+ 
+ package aapt.pb;
+ 
+diff --git a/tools/aapt2/Resources.proto b/tools/aapt2/Resources.proto
+index 5c6408940..d422fcd34 100644
+--- a/tools/aapt2/Resources.proto
++++ b/tools/aapt2/Resources.proto
+@@ -16,7 +16,7 @@
+ 
+ syntax = "proto3";
+ 
+-import "frameworks/base/tools/aapt2/Configuration.proto";
++import "Configuration.proto";
+ 
+ package aapt.pb;
+ 
+diff --git a/tools/aapt2/ResourcesInternal.proto b/tools/aapt2/ResourcesInternal.proto
+index b0ed3da33..97aa5af77 100644
+--- a/tools/aapt2/ResourcesInternal.proto
++++ b/tools/aapt2/ResourcesInternal.proto
+@@ -16,8 +16,8 @@
+ 
+ syntax = "proto3";
+ 
+-import "frameworks/base/tools/aapt2/Configuration.proto";
+-import "frameworks/base/tools/aapt2/Resources.proto";
++import "Configuration.proto";
++import "Resources.proto";
+ 
+ package aapt.pb.internal;
+ 
+-- 
+2.48.1
+
