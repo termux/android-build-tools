@@ -1,0 +1,44 @@
+From 3bea7c9d6f6c7750fcd180f84f5b32c76d35e56e Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] base: Fix variable initialization
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes the following compiler error with g++
+
+AssetsProvider.cpp:140:18: error: expected primary-expression before ‘.’ token
+  140 |   struct stat sb{.st_mtime = -1};
+      |                  ^
+---
+ libs/androidfw/AssetsProvider.cpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/libs/androidfw/AssetsProvider.cpp b/libs/androidfw/AssetsProvider.cpp
+index 2d3c06506..aeee8dd22 100644
+--- a/libs/androidfw/AssetsProvider.cpp
++++ b/libs/androidfw/AssetsProvider.cpp
+@@ -104,7 +104,8 @@ std::unique_ptr<ZipAssetsProvider> ZipAssetsProvider::Create(std::string path,
+     return {};
+   }
+ 
+-  struct stat sb{.st_mtime = -1};
++  struct stat sb{};
++  sb.st_mtime = -1;
+   // Skip all up-to-date checks if the file won't ever change.
+   if (!isReadonlyFilesystem(path.c_str())) {
+     if ((released_fd < 0 ? stat(path.c_str(), &sb) : fstat(released_fd, &sb)) < 0) {
+@@ -137,7 +138,8 @@ std::unique_ptr<ZipAssetsProvider> ZipAssetsProvider::Create(base::unique_fd fd,
+     return {};
+   }
+ 
+-  struct stat sb{.st_mtime = -1};
++  struct stat sb{};
++  sb.st_mtime = -1;
+   // Skip all up-to-date checks if the file won't ever change.
+   if (!isReadonlyFilesystem(released_fd)) {
+     if (fstat(released_fd, &sb) < 0) {
+-- 
+2.48.1
+

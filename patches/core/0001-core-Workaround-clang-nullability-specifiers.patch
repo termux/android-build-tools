@@ -1,0 +1,28 @@
+From dad694acb458b626445ebd8e220af6d3fbfa3de9 Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] core: Workaround clang nullability specifiers
+
+---
+ libutils/Threads.cpp | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/libutils/Threads.cpp b/libutils/Threads.cpp
+index d8d75ac..5b8ca78 100644
+--- a/libutils/Threads.cpp
++++ b/libutils/Threads.cpp
+@@ -42,6 +42,11 @@
+ # define __android_unused __attribute__((__unused__))
+ #endif
+ 
++#ifndef __clang__
++#define _Nonnull
++#define _Nullable
++#endif
++
+ /*
+  * ===========================================================================
+  *      Thread wrappers
+-- 
+2.48.1
+

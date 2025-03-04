@@ -3,6 +3,46 @@ name: build
 on: [push, pull_request]
 
 jobs:
+
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: "archlinux:base"
+            pkgs: "gcc"
+            env: "CC=gcc CXX=g++"
+          - os: "archlinux:base"
+            pkgs: "clang"
+            env: "CC=clang CXX=clang++"
+    container:
+      image: ${{ matrix.os }}
+    steps:
+    - name: prep archlinux
+      if: startsWith(matrix.os, 'archlinux')
+      run: |
+        pacman -Syu --needed --noconfirm \
+          ${{ matrix.pkgs }} bison cmake expat flex fmt git gtest \
+          libpng ninja pkgconf protobuf
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: Prepare
+      run: |
+        git config --global user.email "you@example.com"
+        git config --global user.name "Your Name"
+    - name: Build
+      run: |
+        test -n "${{ matrix.env }}" && export ${{ matrix.env }}
+        cmake -B build -G Ninja
+        cmake --build build
+    - name: Check
+      run: |
+        ./build/vendor/aapt version
+        ./build/vendor/aapt2 version
+
   mingw:
     runs-on: windows-latest
     strategy:
