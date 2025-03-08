@@ -1,0 +1,39 @@
+From fb9041c7d8927f3938905e464c27d919dcaacbaa Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] libbase: Mark methods const explicitly
+
+This fixes the following compiler error.
+
+properties.cpp:89:26: note: in instantiation of function template specialization
+'std::set<prop_info, prop_info_cmp>::find<const char *>' requested here
+   89 |   auto it = g_properties.find(key);
+      |                          ^
+properties.cpp:64:8: note: candidate function not viable: 'this' argument has type
+'const prop_info_cmp', but method is not marked const
+   64 |   bool operator()(std::string_view lhs, const prop_info& rhs) { return lhs < rhs.key; }
+      |        ^
+---
+ properties.cpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/properties.cpp b/properties.cpp
+index e217c9e..9fd44a8 100644
+--- a/properties.cpp
++++ b/properties.cpp
+@@ -60,9 +60,9 @@ struct prop_info {
+ 
+ struct prop_info_cmp {
+   using is_transparent = void;
+-  bool operator()(const prop_info& lhs, const prop_info& rhs) { return lhs.key < rhs.key; }
+-  bool operator()(std::string_view lhs, const prop_info& rhs) { return lhs < rhs.key; }
+-  bool operator()(const prop_info& lhs, std::string_view rhs) { return lhs.key < rhs; }
++  bool operator()(const prop_info& lhs, const prop_info& rhs) const { return lhs.key < rhs.key; }
++  bool operator()(std::string_view lhs, const prop_info& rhs) const { return lhs < rhs.key; }
++  bool operator()(const prop_info& lhs, std::string_view rhs) const { return lhs.key < rhs; }
+ };
+ 
+ static auto& g_properties_lock = *new std::mutex;
+-- 
+2.48.1
+

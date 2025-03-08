@@ -43,7 +43,7 @@ pkg_check_modules(libpng REQUIRED IMPORTED_TARGET libpng)
 
 option(ANDROID_BUILD_TOOLS_MUSL_LIBC "Enable workaround absence of sys/cdefs.h for musl libc" OFF)
 
-set(ANDROID_VERSION "android-15.0.0_r17")
+set(ANDROID_VERSION "android-15.0.0_r23")
 configure_file(version.h.in build/version.h @ONLY)
 if(ANDROID_BUILD_TOOLS_MUSL_LIBC)
     configure_file(cdefs.h.in sys/cdefs.h @ONLY)
