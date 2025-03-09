@@ -40,15 +40,15 @@ set(aidl_SRCS
 bison_target(
     AidlParser
     ${CMAKE_CURRENT_SOURCE_DIR}/aidl/aidl_language_y.yy
-    ${CMAKE_CURRENT_BINARY_DIR}/aidl/aidl_language_y.cpp
-    DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/aidl/aidl_language_y.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/aidl/aidl_language_y.cpp
+    DEFINES_FILE ${CMAKE_CURRENT_SOURCE_DIR}/aidl/aidl_language_y.h
     )
 
 flex_target(
     AidlScanner
     ${CMAKE_CURRENT_SOURCE_DIR}/aidl/aidl_language_l.ll
-    ${CMAKE_CURRENT_BINARY_DIR}/aidl/aidl_language_l.cpp
-    DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/aidl/aidl_language_l.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/aidl/aidl_language_l.cpp
+    DEFINES_FILE ${CMAKE_CURRENT_SOURCE_DIR}/aidl/aidl_language_l.h
 )
 
 add_flex_bison_dependency(AidlScanner AidlParser)
@@ -59,6 +59,7 @@ add_executable(aidl
     ${FLEX_AidlScanner_OUTPUTS}
 )
 
-target_link_libraries(aidl
+target_link_libraries(aidl PRIVATE
     libbase
+    GTest::gtest
 )

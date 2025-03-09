@@ -33,7 +33,7 @@ endif()
 
 include(aapt.cmake)
 include(aapt2.cmake)
-# include(aidl.cmake)
+include(aidl.cmake)
 include(libandroidfw.cmake)
 include(libbase.cmake)
 include(libcutils.cmake)
@@ -44,6 +44,7 @@ include(libziparchive.cmake)
 include(zipalign.cmake)
 
 install(TARGETS
+    aidl
     aapt
     aapt2
     zipalign

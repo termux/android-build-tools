@@ -1,0 +1,66 @@
+From a030cec1f2a2e7f649f905c5c4b2278965d71e2e Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] aidl: Move explicit specialization outside of class definition
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This fixes the following compiler error.
+
+aidl/code_writer.h:54:13: error: explicit specialization in non-namespace
+scope ‘class android::aidl::CodeWriter’
+   54 |   template <>
+      |             ^
+
+gcc bug: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=85282
+---
+ code_writer.cpp | 5 +++++
+ code_writer.h   | 8 +++-----
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/code_writer.cpp b/code_writer.cpp
+index 8153b7ae..20cd78b2 100644
+--- a/code_writer.cpp
++++ b/code_writer.cpp
+@@ -44,6 +44,11 @@ std::string CodeWriter::ApplyIndent(const std::string& str) {
+   return output;
+ }
+ 
++template <>
++bool CodeWriter::Write(const char* str) {
++  return WriteString(str);
++}
++
+ bool CodeWriter::WriteString(const std::string& str) {
+   // extract lines. empty line is preserved.
+   std::vector<std::string> lines;
+diff --git a/code_writer.h b/code_writer.h
+index 593f98f0..a63ef52b 100644
+--- a/code_writer.h
++++ b/code_writer.h
+@@ -51,11 +51,6 @@ class CodeWriter {
+     return WriteString(formatted);
+   }
+ 
+-  template <>
+-  bool Write(const char* str) {
+-    return WriteString(str);
+-  }
+-
+   virtual bool WriteString(const std::string&);
+ 
+   void Indent();
+@@ -75,6 +70,9 @@ class CodeWriter {
+   bool start_of_line_ {true};
+ };
+ 
++template <>
++bool CodeWriter::Write(const char* str);
++
+ std::string QuotedEscape(const std::string& str);
+ std::string MultilineCommentEscape(const std::string& str);
+ 
+-- 
+2.48.1
+

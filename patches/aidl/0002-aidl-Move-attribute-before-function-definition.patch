@@ -1,0 +1,30 @@
+From 5b28dfc5fbe4d7b458585d31aca7f93715fdbf2d Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] aidl: Move attribute before function definition
+
+This fixes the following compiler error.
+
+aidl/code_writer.h:47:48: error: attributes are not allowed on a function-definition
+   47 |   bool Write(const char* format, Args... args) __attribute__((format(printf, 2, 0))) {
+      |                                                ^~~~~~~~~~~~~
+---
+ code_writer.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/code_writer.h b/code_writer.h
+index e6590c3f..593f98f0 100644
+--- a/code_writer.h
++++ b/code_writer.h
+@@ -44,7 +44,7 @@ class CodeWriter {
+   // Write a formatted string to this writer in the usual printf sense.
+   // Returns false on error.
+   template <typename... Args>
+-  bool Write(const char* format, Args... args) __attribute__((format(printf, 2, 0))) {
++  bool __attribute__((format(printf, 2, 0))) Write(const char* format, Args... args) {
+     std::string formatted;
+     android::base::StringAppendF(&formatted, format, args...);
+ 
+-- 
+2.48.1
+

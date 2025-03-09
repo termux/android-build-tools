@@ -35,6 +35,8 @@ cmake and system provided toolchain.
 
 ## Supported Tools
 
+* aidl - Android Interface Definition Language (AIDL) Compiler
+
 * aapt - Android Asset Packaging Tool
 
 * aapt2 - Android Asset Packaging Tool, version 2
