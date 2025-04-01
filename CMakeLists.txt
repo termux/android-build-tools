@@ -24,8 +24,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-attributes -Wno-deprecated-declarat
 add_compile_definitions(_FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE)
 
 # Dependencies
-add_subdirectory(vendor/zopfli EXCLUDE_FROM_ALL)
-
 find_package(BISON REQUIRED)
 find_package(EXPAT REQUIRED)
 find_package(FLEX REQUIRED)

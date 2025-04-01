@@ -1,0 +1,22 @@
+From 68abb8acdb3a6a6fea82a1fc8e9fdbe87e7038dc Mon Sep 17 00:00:00 2001
+From: Biswapriyo Nath <nathbappai@gmail.com>
+Date: Wed, 1 Jan 2025 00:00:00 +0000
+Subject: [PATCH] zopfli: Bump minimum cmake version for cmake 4
+
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e56fd2f..0561b79 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8.11)
++cmake_minimum_required(VERSION 3.12.0)
+ 
+ project(Zopfli)
+ 
+-- 
+2.49.0
+

@@ -11,6 +11,7 @@ set(android-vendored
     libziparchive
     aidl
     core
+    zopfli
 )
 
 option(ANDROID_BUILD_TOOLS_PATCH_VENDOR "Enable patching vendor projects using patches directory" ON)
@@ -30,6 +31,8 @@ if(ANDROID_BUILD_TOOLS_PATCH_VENDOR AND EXISTS "${ANDROID_PATCH_DIR}/")
         endif(patches)
     endforeach(v)
 endif()
+
+add_subdirectory(zopfli EXCLUDE_FROM_ALL)
 
 include(aapt.cmake)
 include(aapt2.cmake)
