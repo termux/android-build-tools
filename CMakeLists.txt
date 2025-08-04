@@ -6,6 +6,8 @@ include(GNUInstallDirs)
 
 enable_language(C CXX)
 
+option(ANDROID_BUILD_TOOLS_DEV_MODE "Enable dev mode to ease upstreaming of patches to Google" OFF)
+
 # Use C11 with GNU extensions.
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_EXTENSIONS ON)
