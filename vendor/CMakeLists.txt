@@ -22,11 +22,23 @@ if(ANDROID_BUILD_TOOLS_PATCH_VENDOR AND EXISTS "${ANDROID_PATCH_DIR}/")
         file(GLOB patches ${ANDROID_PATCH_DIR}/${v}/*.patch)
         if(patches)
             message(STATUS "Applying patches for: ${v}")
-            execute_process(COMMAND git -C
-                ${CMAKE_CURRENT_SOURCE_DIR}/${v} am ${patches}
-                RESULT_VARIABLE ret)
-            if(NOT "${ret}" STREQUAL "0")
-                message(FATAL_ERROR "Couldn't apply patches for ${v}")
+
+            if (ANDROID_BUILD_TOOLS_DEV_MODE)
+                foreach (patch ${patches})
+                    execute_process(COMMAND patch -d
+                        ${CMAKE_CURRENT_SOURCE_DIR}/${v} -p1 -i ${patch}
+                        RESULT_VARIABLE ret)
+                    if(NOT "${ret}" STREQUAL "0")
+                        message(FATAL_ERROR "Couldn't apply patch ${patch} for ${v}")
+                    endif()
+                endforeach(patch)
+            else()
+                execute_process(COMMAND git -C
+                    ${CMAKE_CURRENT_SOURCE_DIR}/${v} am ${patches}
+                    RESULT_VARIABLE ret)
+                if(NOT "${ret}" STREQUAL "0")
+                    message(FATAL_ERROR "Couldn't apply patches for ${v}")
+                endif()
             endif()
         endif(patches)
     endforeach(v)
