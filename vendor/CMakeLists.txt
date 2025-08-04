@@ -14,8 +14,6 @@ set(android-vendored
     zopfli
 )
 
-option(ANDROID_BUILD_TOOLS_PATCH_VENDOR "Enable patching vendor projects using patches directory" ON)
-
 if(ANDROID_BUILD_TOOLS_PATCH_VENDOR AND EXISTS "${ANDROID_PATCH_DIR}/")
     execute_process(COMMAND git submodule --quiet update)
     foreach(v ${android-vendored})

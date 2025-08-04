@@ -7,6 +7,8 @@ include(GNUInstallDirs)
 enable_language(C CXX)
 
 option(ANDROID_BUILD_TOOLS_DEV_MODE "Enable dev mode to ease upstreaming of patches to Google" OFF)
+option(ANDROID_BUILD_TOOLS_MUSL_LIBC "Enable workaround absence of sys/cdefs.h for musl libc" OFF)
+option(ANDROID_BUILD_TOOLS_PATCH_VENDOR "Enable patching vendor projects using patches directory" ON)
 
 # Use C11 with GNU extensions.
 set(CMAKE_C_STANDARD 11)
@@ -41,8 +43,6 @@ find_package(Threads REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(libpng REQUIRED IMPORTED_TARGET libpng)
-
-option(ANDROID_BUILD_TOOLS_MUSL_LIBC "Enable workaround absence of sys/cdefs.h for musl libc" OFF)
 
 set(ANDROID_VERSION "android-15.0.0_r23")
 configure_file(version.h.in build/version.h @ONLY)
