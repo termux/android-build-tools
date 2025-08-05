@@ -44,7 +44,7 @@ find_package(Threads REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(libpng REQUIRED IMPORTED_TARGET libpng)
 
-set(ANDROID_VERSION "android-15.0.0_r23")
+set(ANDROID_VERSION "android-16.0.0_r2")
 configure_file(version.h.in build/version.h @ONLY)
 if(ANDROID_BUILD_TOOLS_MUSL_LIBC)
     configure_file(cdefs.h.in sys/cdefs.h @ONLY)

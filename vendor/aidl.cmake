@@ -59,6 +59,10 @@ add_executable(aidl
     ${FLEX_AidlScanner_OUTPUTS}
 )
 
+target_include_directories(aidl PRIVATE
+    aidl/include
+)
+
 target_link_libraries(aidl PRIVATE
     libbase
     GTest::gtest

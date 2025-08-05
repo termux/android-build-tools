@@ -27,6 +27,7 @@ set(libaapt2_SRCS
     base/tools/aapt2/io/ZipArchive.cpp
     base/tools/aapt2/link/AutoVersioner.cpp
     base/tools/aapt2/link/FeatureFlagsFilter.cpp
+    base/tools/aapt2/link/FlaggedXmlVersioner.cpp
     base/tools/aapt2/link/FlagDisabledResourceRemover.cpp
     base/tools/aapt2/link/ManifestFixer.cpp
     base/tools/aapt2/link/NoDefaultResourceRemover.cpp

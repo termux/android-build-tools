@@ -19,6 +19,7 @@ set(libandroidfw_SRCS
     base/libs/androidfw/LoadedArsc.cpp
     base/libs/androidfw/Locale.cpp
     base/libs/androidfw/LocaleData.cpp
+    base/libs/androidfw/LocaleDataLookup.cpp
     base/libs/androidfw/misc.cpp
     base/libs/androidfw/NinePatch.cpp
     base/libs/androidfw/ObbFile.cpp
