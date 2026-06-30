@@ -24,6 +24,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-attributes -Wno-deprecated-declarations")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-attributes -Wno-deprecated-declarations")
 
+# Match Soong's global native preprocessor constants.
+add_compile_definitions(ANDROID NDEBUG)
+add_compile_options($<$<COMPILE_LANGUAGE:C,CXX>:-UDEBUG>)
+
 # For off64_t
 add_compile_definitions(_FILE_OFFSET_BITS=64 _LARGEFILE64_SOURCE)
 

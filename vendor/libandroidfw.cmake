@@ -54,7 +54,6 @@ add_library(libandroidfw STATIC
 )
 
 target_compile_definitions(libandroidfw PUBLIC
-    NDEBUG
     STATIC_ANDROIDFW_FOR_TOOLS
 )
 
