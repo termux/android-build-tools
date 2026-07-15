@@ -16,7 +16,6 @@ set(libbase_SRCS
     libbase/stringprintf.cpp
     libbase/strings.cpp
     libbase/threads.cpp
-    libbase/test_utils.cpp
 )
 
 if(WIN32)
