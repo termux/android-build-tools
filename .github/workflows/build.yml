@@ -3,6 +3,39 @@ name: build
 on: [push, pull_request]
 
 jobs:
+  upload-src:
+    name: upload source
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare
+        run: |
+          sudo apt update
+          DEBIAN_FRONTEND=noninteractive sudo apt install -yq \
+            bison cmake flex g++ gcc libexpat1-dev libfmt-dev \
+            libgtest-dev libpng-dev libprotobuf-dev pkg-config \
+            protobuf-compiler
+      - name: checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: true
+      - name: git config
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+      - name: build
+        run: |
+          export SOURCE_DATE_EPOCH=$(date +%s)
+          echo "SOURCE_DATE_EPOCH: ${SOURCE_DATE_EPOCH}"
+          cmake -B build
+          tar -chzf android-build-tools.tar.gz -T tarball-files.txt --transform='s|^|android-build-tools/|'
+          for x in sha1sum sha256sum sha512sum b2sum; do
+            printf "$x " && $x android-build-tools.tar.gz | cut -d " " -f 1
+          done
+      - name: upload
+        uses: actions/upload-artifact@v7
+        with:
+          archive: false
+          path: android-build-tools.tar.gz
 
   linux:
     runs-on: ubuntu-latest
